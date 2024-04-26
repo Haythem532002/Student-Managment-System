@@ -69,11 +69,7 @@ public class Modifie extends JFrame implements ActionListener {
         filiereLabel.setBounds(40, 260, 100, 30);
         add(filiereLabel);
 
-//        filiereField = new JTextField();
-//        filiereField.setBounds(150, 260, 150, 30);
-//        add(filiereField);
-
-        String[] optionsF = {"FIA", "GL2","GL3", "EEA"};
+        String[] optionsF = {"FIA", "GL2","GL3"};
         comboBoxF = new JComboBox<>(optionsF);
         comboBoxF.setBounds(150, 260, 150, 30);
         add(comboBoxF);
@@ -82,9 +78,6 @@ public class Modifie extends JFrame implements ActionListener {
         sexeLabel.setBounds(40, 300, 100, 30);
         add(sexeLabel);
 
-//        sexeField = new JTextField();
-//        sexeField.setBounds(150, 300, 150, 30);
-//        add(sexeField);
 
         String [] optionsSexe= {"Homme","Femme"};
         comboBoxSexe=new JComboBox<>(optionsSexe);
@@ -125,8 +118,6 @@ public class Modifie extends JFrame implements ActionListener {
         moyenneField.setText(String.valueOf(moyenne));
         comboBoxF.setSelectedItem(filiere);
         comboBoxSexe.setSelectedItem(sexe);
-//        filiereField.setText(filiere);
-//        sexeField.setText(sexe);
 
 
 
@@ -162,9 +153,5 @@ public class Modifie extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Pas de changement dans les informations");
             }
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        new Modifie(14367351);
     }
 }

@@ -26,7 +26,7 @@ public class First_Page extends JFrame implements ActionListener {
 
 
         JButton btn= new JButton("Continuer");
-        btn.setBounds(50, 150, 100, 50);
+        btn.setBounds(50, 140, 100, 50);
         btn.setForeground(Color.WHITE);
         btn.setBackground(Color.decode("#751EAA"));
         btn.setFocusable(false);

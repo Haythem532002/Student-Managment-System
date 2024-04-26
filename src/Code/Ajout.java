@@ -55,7 +55,7 @@ public class Ajout extends  JFrame implements ActionListener {
         moyenneField.setBounds(150, 140, 150, 30);
         add(moyenneField);
 
-        String[] optionsF = {"FIA", "GL2","GL3", "EEA"};
+        String[] optionsF = {"FIA", "GL2","GL3"};
         comboBoxF = new JComboBox<>(optionsF);
         comboBoxF.setBounds(150, 180, 150, 30);
         add(comboBoxF);

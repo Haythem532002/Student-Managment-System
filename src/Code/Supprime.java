@@ -4,12 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Supprime extends JFrame implements ActionListener {
     EtudiantDAO dao;
-    JTextField cinField;
     JButton btnRet,btn;
+    JComboBox<Integer> comboBoxC;
+    Integer[] optionsC;
     Supprime(){
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
@@ -22,9 +25,24 @@ public class Supprime extends JFrame implements ActionListener {
         this.add(cinLabel);
 
 
-        cinField = new JTextField();
-        cinField.setBounds(225, 100, 150, 30);
-        this.add(cinField);
+        dao=new EtudiantDAO("jdbc:mysql://localhost:3306/projet_etudiant","root","");
+
+        optionsC=new Integer[5];
+        try {
+            ResultSet rs=dao.selection("select cin from etudiant");
+            int i=-1;
+            while(rs.next()){
+                i++;
+                optionsC[i]=rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        comboBoxC = new JComboBox<>(optionsC);
+        comboBoxC.setBounds(225, 100, 150, 30);
+        add(comboBoxC);
+
+
 
         btn= new JButton("Continuer");
         btn.setBounds(310, 160, 100, 30);
@@ -43,7 +61,7 @@ public class Supprime extends JFrame implements ActionListener {
         this.add(btnRet);
 
 
-        dao=new EtudiantDAO("jdbc:mysql://localhost:3306/projet_etudiant","root","");
+
 
         this.setSize(600, 300);
         this.setLocation(450, 200);
@@ -57,15 +75,16 @@ public class Supprime extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn) {
-            int cin = Integer.parseInt(cinField.getText());
+            int cin = (int) comboBoxC.getSelectedItem();
             try {
                 int rowsAffected = dao.supprimeEtudiant(cin);
                 if (rowsAffected > 0) {
+                    comboBoxC.removeItem(cin);
                     JOptionPane.showMessageDialog(this, "Étudiant supprimé avec succès");
                 } else {
                     JOptionPane.showMessageDialog(this, "Aucun étudiant trouvé avec ce CIN");
                 }
-                cinField.setText("");
+                comboBoxC.setSelectedIndex(1);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

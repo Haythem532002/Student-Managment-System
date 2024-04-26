@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ModifieTab extends JFrame implements ActionListener {
     JButton btn,btnRet;
     EtudiantDAO dao;
-    JTextField cinField;
+    JComboBox<Integer> comboBoxC;
+    Integer[] optionsC;
     ModifieTab() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
@@ -21,10 +23,22 @@ public class ModifieTab extends JFrame implements ActionListener {
         cinLabel.setBounds(125, 40, 400, 30);
         this.add(cinLabel);
 
+        dao=new EtudiantDAO("jdbc:mysql://localhost:3306/projet_etudiant","root","");
 
-        cinField = new JTextField();
-        cinField.setBounds(225, 100, 150, 30);
-        this.add(cinField);
+        optionsC=new Integer[5];
+        try {
+            ResultSet rs=dao.selection("select cin from etudiant");
+            int i=-1;
+            while(rs.next()){
+                i++;
+                optionsC[i]=rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        comboBoxC = new JComboBox<>(optionsC);
+        comboBoxC.setBounds(225, 100, 150, 30);
+        add(comboBoxC);
 
         btn= new JButton("Continuer");
         btn.setBounds(310, 160, 100, 30);
@@ -43,8 +57,6 @@ public class ModifieTab extends JFrame implements ActionListener {
         this.add(btnRet);
 
 
-        dao=new EtudiantDAO("jdbc:mysql://localhost:3306/projet_etudiant","root","");
-
         this.setSize(600, 300);
         this.setLocation(450, 200);
         this.setVisible(true);
@@ -59,7 +71,7 @@ public class ModifieTab extends JFrame implements ActionListener {
             setVisible(false);
         }
         if(e.getSource()==btn){
-            int cin=Integer.parseInt(cinField.getText());
+            int cin= (int) comboBoxC.getSelectedItem();
             try {
                 if(dao.recherche(cin)==-1){
                     JOptionPane.showMessageDialog(this, "Etudiant Introuvable");
