@@ -1,7 +1,8 @@
 # Student-Mangment-System
-this project is a desktop application created using java swing and database MySQL and i have integrated java Socket and RMI to perform a way for Admin to Chat
+This project is a desktop application created using java swing for Graphic Interface and database MySQL for saving data and i have integrated java Socket and RMI to give the admins 
+a way to chat.The Admin can perform CRUD Operations to manage Students.
 
-the Admin can perform CRUD Operations to manage Students.
+
 ![Splash](https://github.com/Haythem532002/Student-Managment-System/assets/112172229/deadc32f-2e80-4255-9126-8f7a0c74e03e)
 ![Login](https://github.com/Haythem532002/Student-Managment-System/assets/112172229/df8e574d-3f90-4e0d-973f-01273f9cbc60)
 ![Home](https://github.com/Haythem532002/Student-Managment-System/assets/112172229/8881117a-bbc2-4208-b58c-65b5b349258d)
